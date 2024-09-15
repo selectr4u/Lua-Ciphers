@@ -4,7 +4,7 @@ Welcome to Lua Ciphers! This is an educational project where I explore and imple
 
 ## Project Overview
 
-In this project, you'll find implementations of various ciphers, including but not limited to:
+In this project, you'll find implementations of various ciphers, including to:
 
 - **Caesar Cipher**: A simple substitution cipher where each letter in the plaintext is shifted a certain number of places down the alphabet.
 - **Vigenère Cipher**: A method of encrypting alphabetic text by using a simple form of polyalphabetic substitution.
