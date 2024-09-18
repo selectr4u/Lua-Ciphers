@@ -11,6 +11,7 @@ In this project, you'll find implementations of various ciphers, including to:
 - **Affine Cipher**: A type of monoalphabetic substitution cipher where each letter in an alphabet is mapped to its numeric equivalent, encrypted using a simple mathematical function, and converted back to a letter.
 - **ROT13 Cipher**: A special case of the Caesar Cipher where each letter is shifted by 13 places in the alphabet.
 - **Rail Fence Cipher**: A transposition cipher that writes the plaintext in a zigzag pattern across multiple "rails" and then reads off each row to create the ciphertext.
+- **Monoalphabetic Substitution Cipher**: A cipher where each letter of the plaintext is replaced by a letter with a fixed relationship to it in the alphabet. The key is a permutation of the alphabet.
 
 ## Getting Started
 
