@@ -1,7 +1,11 @@
 local CaeserCipher = {}
 
-
 -- The principle of the Caeser Cipher rely on the string being strictly of alphabetical characters.
+
+--- Enciphers a given string using the Caesar Cipher.
+--- @param str string: The input string to be enciphered.
+--- @param shiftValue number: The shift value used for enciphering.
+--- @return string: The enciphered string.
 CaeserCipher.encipher = function(str, shiftValue)
     local result = {}
 
@@ -51,6 +55,10 @@ CaeserCipher.encipher = function(str, shiftValue)
     return table.concat(result)
 end
 
+--- Deciphers a given string using the Caesar Cipher.
+--- @param encryptedStr string: The input string to be deciphered.
+--- @param shiftValue number: The shift value used for deciphering.
+--- @return string: The deciphered string.
 CaeserCipher.decipher = function(encryptedStr, shiftValue)
     local result = {}
 
@@ -100,6 +108,9 @@ CaeserCipher.decipher = function(encryptedStr, shiftValue)
     return table.concat(result)
 end
 
+--- Attempts to decipher a given string using all possible shift values.
+--- @param encryptedStr string: The input string to be deciphered.
+--- @return table: A table containing all possible deciphered strings.
 CaeserCipher.bruteforce = function(encryptedStr)
     -- There are 26 letters in the Alphabet, so a total of 26 Real Shift values (excluding 0)
     local potentialOriginalStrs = {}
@@ -111,7 +122,5 @@ CaeserCipher.bruteforce = function(encryptedStr)
 
     return potentialOriginalStrs
 end
-
-
 
 return CaeserCipher

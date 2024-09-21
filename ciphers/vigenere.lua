@@ -1,5 +1,9 @@
 local VignereCipher = {}
 
+--- Applies a Caesar cipher shift to a character.
+--- @param char number: The ASCII value of the character to be shifted.
+--- @param shiftValue number: The ASCII value of the shift character.
+--- @return string: The shifted character.
 local function caeserCipherOnCharacter(char, shiftValue)
     -- We should consider converting the shiftValue (as the shiftValue here is alphabetic)
     if shiftValue >= 65 and shiftValue <= 90 then
@@ -12,22 +16,18 @@ local function caeserCipherOnCharacter(char, shiftValue)
         -- Non-alphabetic character
     end
 
-
     if (char > 64) and (char < 91) then
         -- The character is uppercase
         local newCharValue = char + shiftValue
         if (newCharValue) < 65 then
             -- The character is technically out of range in the negatives
             local amountOutBy = 65 - newCharValue
-
             newCharValue = 91 - amountOutBy
         elseif (newCharValue) > 90 then
             -- The character is technically out of range in the positives
             local amountOutBy = newCharValue - 90
-
             newCharValue = 64 + amountOutBy
         end
-
         return string.char(newCharValue)
     elseif (char > 96) and (char < 123) then
         -- The character is lowercase
@@ -35,12 +35,10 @@ local function caeserCipherOnCharacter(char, shiftValue)
         if (newCharValue) < 97 then
             -- The character is technically out of range in the negatives
             local amountOutBy = 97 - newCharValue
-
             newCharValue = 123 - amountOutBy
         elseif (newCharValue) > 122 then
             -- The character is technically out of range in the positives
             local amountOutBy = newCharValue - 122
-
             newCharValue = 96 + amountOutBy
         end
         return string.char(newCharValue)
@@ -50,7 +48,10 @@ local function caeserCipherOnCharacter(char, shiftValue)
     end
 end
 
-
+--- Applies a Caesar cipher shift in reverse to a character.
+--- @param char number: The ASCII value of the character to be shifted.
+--- @param shiftValue number: The ASCII value of the shift character.
+--- @return string: The shifted character.
 local function caeserDecipherOnCharacter(char, shiftValue)
     -- We should consider converting the shiftValue (as the shiftValue here is alphabetic)
     if shiftValue >= 65 and shiftValue <= 90 then
@@ -63,22 +64,18 @@ local function caeserDecipherOnCharacter(char, shiftValue)
         -- Non-alphabetic character
     end
 
-
     if (char > 64) and (char < 91) then
         -- The character is uppercase
         local newCharValue = char - shiftValue
         if (newCharValue) < 65 then
             -- The character is technically out of range in the negatives
             local amountOutBy = 65 - newCharValue
-
             newCharValue = 91 - amountOutBy
         elseif (newCharValue) > 90 then
             -- The character is technically out of range in the positives
             local amountOutBy = newCharValue - 90
-
             newCharValue = 64 + amountOutBy
         end
-
         return string.char(newCharValue)
     elseif (char > 96) and (char < 123) then
         -- The character is lowercase
@@ -86,12 +83,10 @@ local function caeserDecipherOnCharacter(char, shiftValue)
         if (newCharValue) < 97 then
             -- The character is technically out of range in the negatives
             local amountOutBy = 97 - newCharValue
-
             newCharValue = 123 - amountOutBy
         elseif (newCharValue) > 122 then
             -- The character is technically out of range in the positives
             local amountOutBy = newCharValue - 122
-
             newCharValue = 96 + amountOutBy
         end
         return string.char(newCharValue)
@@ -101,6 +96,10 @@ local function caeserDecipherOnCharacter(char, shiftValue)
     end
 end
 
+--- Enciphers a given string using the Vigenere Cipher.
+--- @param str string: The input string to be enciphered.
+--- @param encryptionKey string: The key used for enciphering.
+--- @return string: The enciphered string.
 VignereCipher.encipher = function(str, encryptionKey)
     local result = {}
 
@@ -112,7 +111,7 @@ VignereCipher.encipher = function(str, encryptionKey)
 
     -- We want to make the encryptionKey the same length as the string
     if strLen ~= keyLen then
-        -- So, we make adjustments to the encryptionKey based on it's length
+        -- So, we make adjustments to the encryptionKey based on its length
         if (strLen < keyLen) then
             encryptionKey = encryptionKey:sub(strLen, keyLen)
         else
@@ -123,7 +122,6 @@ VignereCipher.encipher = function(str, encryptionKey)
         end
     end
 
-
     for i = 1, strLen, 1 do
         local cipheredCharacter = caeserCipherOnCharacter(str:sub(i, i + 1):byte(), encryptionKey:sub(i, i + 1):byte())
         table.insert(result, cipheredCharacter)
@@ -132,6 +130,10 @@ VignereCipher.encipher = function(str, encryptionKey)
     return table.concat(result)
 end
 
+--- Deciphers a given string using the Vigenere Cipher.
+--- @param encryptedStr string: The input string to be deciphered.
+--- @param encryptionKey string: The key used for deciphering.
+--- @return string: The deciphered string.
 VignereCipher.decipher = function(encryptedStr, encryptionKey)
     local result = {}
 
@@ -143,7 +145,7 @@ VignereCipher.decipher = function(encryptedStr, encryptionKey)
 
     -- We want to make the encryptionKey the same length as the string
     if strLen ~= keyLen then
-        -- So, we make adjustments to the encryptionKey based on it's length
+        -- So, we make adjustments to the encryptionKey based on its length
         if (strLen < keyLen) then
             encryptionKey = encryptionKey:sub(strLen, keyLen)
         else
@@ -153,7 +155,6 @@ VignereCipher.decipher = function(encryptedStr, encryptionKey)
             encryptionKey = encryptionKey:sub(1, strLen)
         end
     end
-
 
     for i = 1, strLen do
         local cipheredCharacter = caeserDecipherOnCharacter(encryptedStr:sub(i, i + 1):byte(),

@@ -1,5 +1,8 @@
-local MonoalphabeticCipher = {}
+local MonoAlphabeticCipher = {}
 
+--- Checks if a string has no repeated characters.
+--- @param str string: The input string to be checked.
+--- @return boolean: True if the string has no repeated characters, false otherwise.
 local function hasNoRepeats(str)
     local charTable = {}
     for i = 1, #str do
@@ -12,7 +15,11 @@ local function hasNoRepeats(str)
     return true
 end
 
-MonoalphabeticCipher.encipher = function(str, key)
+--- Enciphers a given string using the Monoalphabetic Substitution Cipher.
+--- @param str string: The input string to be enciphered.
+--- @param key string: The key used for enciphering, must be a permutation of the alphabet.
+--- @return string: The enciphered string.
+MonoAlphabeticCipher.encipher = function(str, key)
     local result = {}
 
     str = tostring(str):upper()
@@ -28,17 +35,11 @@ MonoalphabeticCipher.encipher = function(str, key)
         error("Key must be entirely unique with no repeats of letters")
     end
 
-    print(str)
-
-
     for i = 1, str:len() do
         local charInDecimal = str:byte(i)
 
-
-
         -- Only support for uppercase letters
         charInDecimal = charInDecimal - string.byte('A') + 1
-
 
         table.insert(result, key:sub(charInDecimal, charInDecimal))
     end
@@ -46,7 +47,11 @@ MonoalphabeticCipher.encipher = function(str, key)
     return table.concat(result)
 end
 
-MonoalphabeticCipher.decipher = function(str, key)
+--- Deciphers a given string using the Monoalphabetic Substitution Cipher.
+--- @param str string: The input string to be deciphered.
+--- @param key string: The key used for deciphering, must be a permutation of the alphabet.
+--- @return string: The deciphered string.
+MonoAlphabeticCipher.decipher = function(str, key)
     local result = {}
     local alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -82,4 +87,4 @@ MonoalphabeticCipher.decipher = function(str, key)
     return table.concat(result)
 end
 
-return MonoalphabeticCipher
+return MonoAlphabeticCipher

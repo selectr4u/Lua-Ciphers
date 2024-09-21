@@ -1,7 +1,11 @@
 local RailFenceCipher = {}
 
--- The rail fence cipher is based off having the individual letters on a 'grid' with so many 'rails' and reading it diaganolly up and down
+-- The rail fence cipher is based off having the individual letters on a 'grid' with so many 'rails' and reading it diagonally up and down
 
+--- Enciphers a given string using the Rail Fence Cipher.
+--- @param str string: The input string to be enciphered.
+--- @param key number: The number of rails to use for the cipher.
+--- @return string: The enciphered string.
 RailFenceCipher.encipher = function(str, key)
     local result = {}
     local rails = {} -- Here we will have 'key' amount of rails (the key dictates the rails)
@@ -27,17 +31,19 @@ RailFenceCipher.encipher = function(str, key)
         currentRail = currentRail + direction
     end
 
-
     for _, rail in ipairs(rails) do
         for _, value in ipairs(rail) do
             table.insert(result, value)
         end
     end
 
-
     return table.concat(result)
 end
 
+--- Deciphers a given string using the Rail Fence Cipher.
+--- @param encryptedStr string: The input string to be deciphered.
+--- @param key number: The number of rails used for the cipher.
+--- @return string: The deciphered string.
 RailFenceCipher.decipher = function(encryptedStr, key)
     local result = {}
     local rails = {}
@@ -71,7 +77,6 @@ RailFenceCipher.decipher = function(encryptedStr, key)
             index = index + 1
         end
     end
-
 
     -- We then reread the pattern in the expected order.
     currentRail = 1
